@@ -1,5 +1,5 @@
 name: Release
-on:
+'on':
   push:
     branches:
       - master
@@ -10,19 +10,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Setup Node.js
+      - name: 'Setup Node.js #100'
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: npmrc
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
-      - name: Install dependencies
+      - name: 'npmrc #200'
+        run: >-
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >>
+          .npmrc
+      - name: 'Install dependencies #300'
         run: npm install
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Release
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          NPM_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+      - name: 'Release with semantic release #1000'
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          NPM_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
