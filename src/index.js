@@ -1,4 +1,5 @@
 const yaml = require('js-yaml');
+const base = require('@high-standards-js/base');
 
 function addStep(workflowObject, jobName, stepName, stepOrder, config = {}) {
     const steps = workflowObject.jobs[jobName].steps;
@@ -14,7 +15,7 @@ function addStep(workflowObject, jobName, stepName, stepOrder, config = {}) {
 
 function getWorkflowFile(workflowName = 'release') {
     return base.getFile(
-        `.github/workflows/${workflowName}.yml`,
+        getWorkflowFilePath(workflowName),
         true,
         base.getTemplate(
             __dirname, 
@@ -23,10 +24,21 @@ function getWorkflowFile(workflowName = 'release') {
     );
 }
 
+function getWorkflowFilePath(workflowName = 'release') {
+    return `.github/workflows/${workflowName}.yml`;
+}
+
 function getWorkflowFileObject(workflowName = 'release') {
     return yaml.load(
         getWorkflowFile(workflowName)
     );
+}
+
+function saveWorkflowFileObject(workflowObject, workflowName = 'release') {
+    base.writeFile(
+        getWorkflowFilePath(workflowName),
+        yaml.dump(workflowObject, { indent: 2 })
+    )
 }
 
 function sortSteps(steps) {
@@ -56,4 +68,5 @@ module.exports = {
     addStep,
     getWorkflowFile,
     getWorkflowFileObject,
+    saveWorkflowFileObject,
 }
