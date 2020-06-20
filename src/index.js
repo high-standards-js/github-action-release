@@ -3,7 +3,7 @@ const base = require('@high-standards-js/base');
 
 function addStep(workflowObject, jobName, stepName, stepOrder, config = {}) {
     const steps = workflowObject.jobs[jobName].steps;
-    if (!stepExisting(stepName, stepOrder)) {
+    if (!stepExisting(steps, stepName, stepOrder)) {
         steps.push({
             name: buildStepName(stepName, stepOrder),
             ...config
@@ -50,7 +50,7 @@ function sortSteps(steps) {
     return steps;
 }
 
-function stepExisting(stepName, stepOrder) {
+function stepExisting(steps, stepName, stepOrder) {
     return !!steps.find((singleStep) => {
         return singleStep.name === buildStepName(stepName, stepOrder);
     })
