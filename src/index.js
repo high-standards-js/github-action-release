@@ -1,3 +1,5 @@
+const yaml = require('js-yaml');
+
 function addStep(workflowObject, jobName, stepName, stepOrder, config = {}) {
     const steps = workflowObject.jobs[jobName].steps;
     if (!stepExisting(stepName, stepOrder)) {
@@ -8,6 +10,23 @@ function addStep(workflowObject, jobName, stepName, stepOrder, config = {}) {
     }
     sortSteps(steps);
     return workflowObject;
+}
+
+function getWorkflowFile(workflowName = 'release') {
+    return base.getFile(
+        `.github/workflows/${workflowName}.yml`,
+        true,
+        base.getTemplate(
+            __dirname, 
+            'release.yml'
+        )
+    );
+}
+
+function getWorkflowFileObject(workflowName = 'release') {
+    return yaml.load(
+        getWorkflowFile(workflowName)
+    );
 }
 
 function sortSteps(steps) {
@@ -35,4 +54,6 @@ function buildStepName(stepName, stepOrder) {
 
 module.exports = {
     addStep,
+    getWorkflowFile,
+    getWorkflowFileObject,
 }
