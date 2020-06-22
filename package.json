@@ -8,13 +8,13 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@high-standards-js/base": "^1.7.10",
-    "@high-standards-js/semantic-release": "^1.1.4",
+    "@high-standards-js/base": "^1.7.11",
+    "@high-standards-js/semantic-release": "^1.1.5",
     "js-yaml": "^3.14.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "9.0.1",
-    "@high-standards-js/commitlint": "^1.0.6",
+    "@high-standards-js/commitlint": "^1.0.8",
     "@semantic-release/commit-analyzer": "8.0.1",
     "@semantic-release/github": "7.0.7",
     "@semantic-release/npm": "7.0.5",
